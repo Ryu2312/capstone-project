@@ -4,17 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node-dev --respawn --transpile-only --env-file .env src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "create-db": "ts-node-dev --respawn --env-file .env src/db/seeds/create-table.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1"
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.1",
+    "pg": "^8.13.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.1",
+    "@types/pg": "^8.11.10",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.2"
   }
