@@ -27,7 +27,7 @@ export const formDataSchema = z.object({
   role: z.enum(['user', 'admin']).optional().default('user'),
 })
 
-export type UsersData = z.infer<typeof formDataSchema>
+export type UserData = z.infer<typeof formDataSchema>
 
 // Tipo para la validación de datos de login (solo email y password)
 export const loginSchema = formDataSchema.pick({

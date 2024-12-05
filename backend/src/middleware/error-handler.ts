@@ -1,4 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
+import { formatIssues } from '../utils'
+import { ZodError } from 'zod'
 
 export class ApiError extends Error {
   status: number
@@ -28,6 +30,14 @@ export default function errorHandler(
       error: {
         message: error.message,
         details: error.details,
+      },
+    })
+  } else if (error instanceof ZodError) {
+    res.status(400).json({
+      ok: false,
+      error: {
+        message: 'Error de validación',
+        details: formatIssues(error.issues),
       },
     })
   } else {

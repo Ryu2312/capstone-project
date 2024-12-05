@@ -13,7 +13,7 @@ test('Login exitoso devuelve un token', async () => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      username: 'testino@gmail.com',
+      email: 'testino@gmail.com',
       password: '123456',
     }),
   })
@@ -28,12 +28,17 @@ test('Login con credenciales incorrectas devuelve un error', async () => {
   const response = await fetch('http://localhost:5500/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username: 'user', password: 'wrongpassword' }),
+    body: JSON.stringify({
+      email: 'user@hotmail.com',
+      password: 'wrongpassword',
+    }),
   })
-  assert.strictEqual(response.status, 401)
 
+  assert.strictEqual(response.status, 401)
+  console.log(response.status, response)
   const data = await response.json()
-  assert.strictEqual(data.message, 'Credenciales incorrectas')
+  console.log(data)
+  assert.strictEqual(data.error.message, 'Credenciales incorrectas')
 })
 
 //Endpoints de subida de archivos

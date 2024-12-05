@@ -17,13 +17,13 @@ usersRouter.post(
     try {
       const { email, password } = loginSchema.parse(req.body)
       const user = await UsersService.login(email, password)
-
+      console.log('user verificado', user)
       const payload = {
         role: user.role,
       }
 
       const token = jwt.sign(payload, process.env.JWTSECRETKEY as string, {
-        expiresIn: '40000m',
+        expiresIn: '4000m',
       })
 
       res.status(200).json({
