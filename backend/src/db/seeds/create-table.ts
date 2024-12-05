@@ -10,6 +10,8 @@ const createTableAndInsertUser = async () => {
   try {
     const client = await pool.connect()
 
+    await client.query('DROP TABLE IF EXISTS users')
+
     await client.query(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,

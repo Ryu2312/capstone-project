@@ -35,9 +35,8 @@ test('Login con credenciales incorrectas devuelve un error', async () => {
   })
 
   assert.strictEqual(response.status, 401)
-  console.log(response.status, response)
+
   const data = await response.json()
-  console.log(data)
   assert.strictEqual(data.error.message, 'Credenciales incorrectas')
 })
 
@@ -49,5 +48,5 @@ test('Subida de archivo sin archivo adjunto devuelve un error', async () => {
 
   assert.strictEqual(response.status, 400)
   const data = await response.json()
-  assert.strictEqual(data.message, 'No se ha enviado un archivo')
+  assert.strictEqual(data.error.message, 'No se ha enviado un archivo')
 })

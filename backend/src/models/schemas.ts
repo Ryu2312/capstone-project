@@ -20,10 +20,11 @@ export const formDataSchema = z.object({
   age: z
     .number()
     .optional()
-    .refine((age) => age === null || age === undefined || age > 0, {
-      message: 'La edad debe ser mayor a 0 si se proporciona.',
-    })
-    .nullable(),
+    .nullable()
+    .default(null)
+    .refine((value) => value === null || value > 0, {
+      message: 'Age debe ser mayor a 0',
+    }),
   role: z.enum(['user', 'admin']).optional().default('user'),
 })
 
