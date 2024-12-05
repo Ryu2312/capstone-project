@@ -1,7 +1,13 @@
 import express from 'express'
+import path from 'path'
+import { usersRouter } from './routes/users.routes'
 
 export const app = express()
+export const _dirName = path.resolve('..', 'frontend', 'dist')
 
-app.get('/', (_req, res) => {
-  res.send('<h1>Hello World</h1>')
-})
+//Middlewares de express
+app.use(express.json())
+app.use(express.static(_dirName))
+
+//Rutas
+app.use(usersRouter)
