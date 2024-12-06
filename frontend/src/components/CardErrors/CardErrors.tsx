@@ -31,7 +31,7 @@ export default function CardErrors({
     }
 
     try {
-      const response = await fetch('http://localhost:5500/register', options)
+      const response = await fetch(`/register`, options)
       const data = await response.json()
 
       if (!response.ok) {

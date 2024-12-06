@@ -16,7 +16,7 @@ export default function Unauthorized({
     const password = formData.get('password') as string
 
     try {
-      const response = await fetch('http://localhost:5500/login', {
+      const response = await fetch(`/login`, {
         method: 'POST',
         body: JSON.stringify({ email, password }),
         headers: {

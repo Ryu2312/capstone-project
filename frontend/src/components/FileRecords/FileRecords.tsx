@@ -2,7 +2,7 @@ import { useState } from 'react'
 import CardErrors, {
   type UserError,
   type UserSuccess,
-} from '../CardErrorsCardErrors/CardErrors'
+} from '../CardErrors/CardErrors'
 import CardSuccess from '../CardSuccess/CardSuccess'
 
 export default function FileRecords({

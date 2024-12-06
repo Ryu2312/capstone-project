@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { FORM_STATUS, FormStatusType } from '../../constanst'
 import useForm from '../../hooks/useForm'
-import { UserError, UserSuccess } from '../CardErrorsCardErrors/CardErrors'
+import { UserError, UserSuccess } from '../CardErrors/CardErrors'
 
 export default function FormFile({
   setFormStatus,
