@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "pnpm --filter frontend dev && pnpm --filter backend dev",
+    "build": "pnpm --filter frontend build && pnpm --filter backend build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "private": true,
   "devDependencies": {
     "@eslint/js": "^9.15.0",
     "eslint": "^9.15.0",
