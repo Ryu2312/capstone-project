@@ -35,7 +35,7 @@ export default function Unauthorized({
       setAppStatus(APP_STATUS.AUTHORIZED)
     } catch (error) {
       if (error instanceof Error) {
-        setErrorMessage(error.message)
+        setErrorMessage('No se pudo procesar la solicitud')
         setAppStatus(APP_STATUS.ERROR)
       }
     }

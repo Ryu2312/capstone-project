@@ -17,7 +17,7 @@ export default function Authenticated() {
   return (
     <>
       {formStatus === FORM_STATUS.READY_USAGE ? (
-        <FileRecords registered={registred} />
+        <FileRecords registered={registred} setFormStatus={setFormStatus} />
       ) : (
         <FormFile
           setFormStatus={setFormStatus}

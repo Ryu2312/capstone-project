@@ -16,7 +16,7 @@ export default function Header({
     <header
       className={`max-w-7xl w-full h-fit text-lg font-semibold pb-10 ${
         appStatus === APP_STATUS.AUTHORIZED
-          ? 'flex justify-between items-center'
+          ? 'flex justify-between items-center gap-4'
           : 'text-center'
       }`}
     >
