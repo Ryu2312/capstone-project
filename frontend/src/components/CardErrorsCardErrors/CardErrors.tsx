@@ -1,11 +1,17 @@
-import useForm from '../hooks/useForm'
+import useForm from '../../hooks/useForm'
 
-export default function CardErrors({ userError }: { userError: UserError }) {
+export default function CardErrors({
+  userError,
+  setFailedData,
+}: {
+  userError: UserError
+  setFailedData: React.Dispatch<React.SetStateAction<UserError[]>>
+}) {
   const { row, data, details } = userError
 
   const name = useForm({ type: 'text', initialValue: data.name })
   const email = useForm({ type: 'email', initialValue: data.email })
-  const age = useForm({ type: 'number', initialValue: data.age || '' })
+  const age = useForm({ type: 'te', initialValue: data.age || '' })
 
   const handleSubmit = async () => {
     const options = {
@@ -24,15 +30,20 @@ export default function CardErrors({ userError }: { userError: UserError }) {
       },
     }
 
-    const response = await fetch('http://localhost:5500/register', options)
+    try {
+      const response = await fetch('http://localhost:5500/register', options)
+      const data = await response.json()
 
-    if (!response.ok) {
-      const { row, data, details } = await response.json()
-      console.log(row, data, details)
+      if (!response.ok) {
+        return setFailedData((prev) =>
+          prev.map((user) => (user.row === row ? { ...user, ...data } : user))
+        )
+      }
+
+      return setFailedData((prev) => prev.filter((user) => user.row !== row))
+    } catch (error) {
+      console.error('Error fetching data:', error)
     }
-    console.log(response)
-    const data = await response.json()
-    console.log(data)
   }
 
   return (
@@ -60,7 +71,11 @@ export default function CardErrors({ userError }: { userError: UserError }) {
         )}
       </label>
       <label>
-        <input className=" border w-full rounded-lg p-2" name="age" {...age} />
+        <input
+          className=" border w-full text-center rounded-lg p-2"
+          name="age"
+          {...age}
+        />
         {details.age && <span className="text-red-600 p-1">{details.age}</span>}
       </label>
 

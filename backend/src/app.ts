@@ -3,6 +3,7 @@ import path from 'path'
 import { usersRouter } from './routes/users.routes'
 import errorHandler from './middleware/error-handler'
 import cors from 'cors'
+import { notFoundHandler } from './middleware/not-found'
 
 export const app = express()
 export const _dirName = path.resolve('..', 'frontend', 'dist')
@@ -15,5 +16,6 @@ app.use(cors())
 //Rutas
 app.use(usersRouter)
 
-//Manejo de errores
+//Manejadores de errores y not found
+app.use(notFoundHandler)
 app.use(errorHandler)

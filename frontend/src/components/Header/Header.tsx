@@ -1,4 +1,4 @@
-import { APP_STATUS, AppStatusType } from '../../constantes'
+import { APP_STATUS, AppStatusType } from '../../constanst'
 
 export default function Header({
   appStatus,
@@ -14,7 +14,7 @@ export default function Header({
 
   return (
     <header
-      className={`max-w-7xl w-full h-fit text-lg font-semibold p-4 ${
+      className={`max-w-7xl w-full h-fit text-lg font-semibold pb-10 ${
         appStatus === APP_STATUS.AUTHORIZED
           ? 'flex justify-between items-center'
           : 'text-center'

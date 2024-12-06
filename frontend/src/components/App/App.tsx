@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { APP_STATUS, AppStatusType } from '../../constantes'
+import { APP_STATUS, AppStatusType } from '../../constanst'
 import Header from '../Header/Header'
 import Authenticated from '../Authenticated/Authenticated'
 import Unauthorized from '../Unauthorized/Unauthorized'

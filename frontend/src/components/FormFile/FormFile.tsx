@@ -1,6 +1,7 @@
-import { FORM_STATUS, FormStatusType } from '../../constantes'
+import { useEffect } from 'react'
+import { FORM_STATUS, FormStatusType } from '../../constanst'
 import useForm from '../../hooks/useForm'
-import { UserError, UserSuccess } from '../CardErrors'
+import { UserError, UserSuccess } from '../CardErrorsCardErrors/CardErrors'
 
 export default function FormFile({
   setFormStatus,
@@ -15,11 +16,13 @@ export default function FormFile({
 }) {
   const { value, ...rest } = useForm({ type: 'file', initialValue: '' })
 
-  if (value) {
-    setFormStatus(FORM_STATUS.READY_UPLOAD)
-  } else {
-    setFormStatus(FORM_STATUS.IDLE)
-  }
+  useEffect(() => {
+    if (value) {
+      setFormStatus(FORM_STATUS.READY_UPLOAD)
+    } else {
+      setFormStatus(FORM_STATUS.IDLE)
+    }
+  }, [value])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()

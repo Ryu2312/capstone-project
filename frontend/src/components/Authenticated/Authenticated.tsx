@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { FORM_STATUS, FormStatusType } from '../../constantes'
+import { FORM_STATUS, FormStatusType } from '../../constanst'
 import FormFile from '../FormFile/FormFile'
 import FileRecords from '../FileRecords/FileRecords'
-import { UserError, UserSuccess } from '../CardErrors'
+import { UserError, UserSuccess } from '../CardErrorsCardErrors/CardErrors'
 
 export default function Authenticated() {
   const [formStatus, setFormStatus] = useState<FormStatusType>(FORM_STATUS.IDLE)

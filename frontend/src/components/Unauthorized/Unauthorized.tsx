@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { APP_STATUS, AppStatusType } from '../../constantes'
-import { ApiService } from '../../services/ApiService'
+import { APP_STATUS, AppStatusType } from '../../constanst'
 
 export default function Unauthorized({
   appStatus,
@@ -17,7 +16,22 @@ export default function Unauthorized({
     const password = formData.get('password') as string
 
     try {
-      await ApiService.login(email, password)
+      const response = await fetch('http://localhost:5500/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (!response.ok) {
+        const { error } = await response.json()
+        throw new Error(error.message)
+      }
+
+      const { token } = await response.json()
+      localStorage.setItem('token', token)
+
       setAppStatus(APP_STATUS.AUTHORIZED)
     } catch (error) {
       if (error instanceof Error) {

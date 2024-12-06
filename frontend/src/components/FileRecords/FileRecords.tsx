@@ -1,11 +1,17 @@
-import CardErrors, { type UserError, type UserSuccess } from '../CardErrors'
-import CardSuccess from '../CardSuccess'
+import { useState } from 'react'
+import CardErrors, {
+  type UserError,
+  type UserSuccess,
+} from '../CardErrorsCardErrors/CardErrors'
+import CardSuccess from '../CardSuccess/CardSuccess'
 
 export default function FileRecords({
   registered,
 }: {
   registered: { success: UserSuccess[]; failed: UserError[] }
 }) {
+  const [failedData, setFailedData] = useState(registered.failed)
+
   return (
     <div className="border w-full h-fit rounded-3xl flex flex-col justify-center items-center gap-4 p-8">
       <CardSuccess count={0} />
@@ -19,8 +25,12 @@ export default function FileRecords({
         <span>Email</span>
         <span className="col-span-2.5">Age</span>
       </div>
-      {registered.failed.map((user) => (
-        <CardErrors key={user.row} userError={user} />
+      {failedData.map((user: UserError) => (
+        <CardErrors
+          key={user.row}
+          userError={user}
+          setFailedData={setFailedData}
+        />
       ))}
     </div>
   )
