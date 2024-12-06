@@ -34,13 +34,13 @@ export default function CardErrors({
       const response = await fetch(`/register`, options)
       const data = await response.json()
 
-      if (!response.ok) {
-        return setFailedData((prev) =>
-          prev.map((user) => (user.row === row ? { ...user, ...data } : user))
-        )
+      if (data.success) {
+        return setFailedData((prev) => prev.filter((user) => user.row !== row))
       }
 
-      return setFailedData((prev) => prev.filter((user) => user.row !== row))
+      return setFailedData((prev) =>
+        prev.map((user) => (user.row === row ? data : user))
+      )
     } catch (error) {
       console.error('Error fetching data:', error)
     }
