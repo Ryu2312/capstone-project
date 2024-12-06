@@ -33,7 +33,7 @@ export async function processUser(user: UserData): Promise<Result> {
   if (userExists) {
     return {
       success: false,
-      data,
+      data: user,
       details: { email: 'Email ya registrado' },
     }
   }

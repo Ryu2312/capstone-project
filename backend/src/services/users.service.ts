@@ -10,13 +10,13 @@ export class UsersService {
     //comprobamos que exista el usuario
     const user = await UsersData.verifyData(email)
     if (!user) {
-      throw new ApiError('Credenciales incorrectas', 401)
+      throw new ApiError('Email Incorrecto', 401)
     }
 
     //verificamos su password
     const isvalid = await bcrypt.compare(password, user.password)
     if (!isvalid) {
-      throw new ApiError('Credenciales incorrectas', 401)
+      throw new ApiError('Password Incorrecta', 401)
     }
 
     return user

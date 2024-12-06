@@ -6,13 +6,16 @@ import { UsersService } from '../services/users.service'
 import Busboy from 'busboy'
 import Papa from 'papaparse'
 import { Error, loginSchema, Result, Success } from '../models'
+import { authenticateHandler } from '../middleware/authenticate'
 
 export const usersRouter = Router()
 
+// Pagina principal
 usersRouter.get('/', (_req, res) => {
   res.sendFile(path.join(_dirName, 'index.html'))
 })
 
+// Login
 usersRouter.post('/login', async (req, res, next) => {
   try {
     const { email, password } = loginSchema.parse(req.body)
@@ -35,7 +38,8 @@ usersRouter.post('/login', async (req, res, next) => {
   }
 })
 
-usersRouter.post('/upload', (req, res, next) => {
+// Subida de archivo csv de usuarios
+usersRouter.post('/upload', authenticateHandler, (req, res, next) => {
   const busboy = Busboy({ headers: req.headers })
   const processingPromises: Promise<Success | Error>[] = []
   let row = 0
@@ -82,7 +86,7 @@ usersRouter.post('/upload', (req, res, next) => {
 
         res.status(201).json({ ok: true, success, failed })
       } catch (error) {
-        next(error) // Manejamos cualquier error que ocurra durante el procesamiento
+        next(error)
       }
     })
 
@@ -94,10 +98,14 @@ usersRouter.post('/upload', (req, res, next) => {
   req.pipe(busboy)
 })
 
-usersRouter.post('/register', async (req, res, next) => {
+// Registro de usuario
+usersRouter.post('/register', authenticateHandler, async (req, res, next) => {
+  const { row, data } = req.body
+
   try {
-    const result = await UsersService.register(req.body)
-    res.status(201).json(result.data)
+    const result = await UsersService.register({ chunk: data, row })
+
+    res.status(201).json(result)
   } catch (error) {
     next(error)
   }

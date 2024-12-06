@@ -4,7 +4,7 @@ import Header from './Header'
 
 describe('App', () => {
   beforeEach(() => {
-    render(<Header />)
+    render(<Header appStatus="idle" />)
   })
 
   it('should render', () => {

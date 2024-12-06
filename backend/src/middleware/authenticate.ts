@@ -20,6 +20,10 @@ export function authenticateHandler(
       exp: number
     }
 
+    if (payload.role !== 'admin') {
+      return next(new ApiError('No autorizado', 401))
+    }
+
     req.role = payload.role
 
     next()
